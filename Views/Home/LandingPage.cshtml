@@ -1,8 +1,45 @@
+<!--This has a different layout. Talk with Chris about changing the _Layout adaptation.-->
 @{
     ViewData["Title"] = "Landing Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!--Dummy Image Slider-->
+<div id="slideshow" class="carousel slide" data-ride="carousel">
+    <ul class="carousel-indicators">
+        <li data-target="#slideshow" data-slide-to="0" class="active"></li>
+        <li data-target="#slideshow" data-slide-to="1"></li>
+        <li data-target="#slideshow" data-slide-to="2"></li>
+    </ul>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="img/books.jpg">
+            <div class="carousel-caption">
+                <h1 class="display-2 d-none d-sm-block">LEARN</h1>
+                <h4>Contextualize the landscape of your community.</h4>
+                <a href="learn.html">
+                    <button type="button" class="btn btn-outline-light btn-lg mt-2">Get Started</button>
+                </a>
+                
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="img/people.jpg">
+            <div class="carousel-caption">
+                <h1 class="display-2 d-none d-sm-block">ADVOCATE</h1>
+                <h4>Pioneer community programs or events that address social impact initiatives.</h4>
+                <a href="advocate.html">
+                    <button type="button" class="btn btn-outline-light btn-lg mt-2">Get Started</button>
+                </a>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="img/city.jpg">
+            <div class="carousel-caption">
+                <h1 class="display-2 d-none d-sm-block">PARTICIPATE</h1>
+                <h4>Engage with local jobs, programs, or events that build your community.</h4>
+                <a href="participate.php">
+                    <button type="button" class="btn btn-outline-light btn-lg mt-2">Get Started</button>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

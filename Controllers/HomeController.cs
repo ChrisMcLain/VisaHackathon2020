@@ -27,6 +27,12 @@ namespace VisaHackathon2020.Controllers
         {
             return View();
         }
+        
+        //Adding New Pages: Sagar
+        public IActionResult LandingPage()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
