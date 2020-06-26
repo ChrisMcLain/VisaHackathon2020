@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+</head>
+
+<!--
+Here's the documentation for you to use
+https://getbootstrap.com/docs/4.5/components/modal/
+
+This will be useful since you are creating a form
+https://getbootstrap.com/docs/4.5/components/forms/
+-->
+
+<body class="p-2"> <!-- this means add a padding of size 2 around the entire page -->
+
+<!-- Button that opens the modal-- you don't have to mess with it -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+    Launch Modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color:#1b216d">Donation Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" >
+                <div class="email-field">
+                    <p style="color:#1b216d"> Email Address</p>
+                    <input type ="text" placeholder="Your email" id="email-id">
+                </div>
+                <hr>
+                <div class="modal-amount">
+                    <p style="color:#1b216d"> Amount </p>
+                    <div>
+                        <button>$20</button>
+                        <button>$50</button>
+                        <button>$100</button>
+                        <button>$200</button>
+                    </div>
+                    <br>
+                    <div>
+                        <input type ="text" placeholder="$ Other" id="other-amount">
+                        <select id="currency">
+                            <option value="USD" selected>USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="JPY">JPY</option>
+                            <option value="CAD">CAD</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="donation-option">
+                        <input type="checkbox" id="one-time">
+                        <label for="one-time"> Donate once</label>
+                        <input type="checkbox" id="regular">
+                        <label for="regular"> Donate regularly</label>
+                        <br>
+                        <input type="checkbox" id="anonymous">
+                        <label for="anonymous"> Donate anonymously</label>
+                    </div>
+                    <hr>
+                    <div class="card-details">
+                        <p style="color:#1b216d"> Card details</p>
+                        <input type ="text" placeholder="Card Holder" id="card-holder"><br>
+                        <input type ="text" placeholder="Card Number" id="card-number"><br>
+                        <input type ="text" placeholder="MM/YYYY" id="valid-until">
+                        <input type ="text" placeholder="CVV" id="cvv">
+                    </div>
+                </div>
+                <hr>
+                <div class="message-field">
+                    <p style="color:#1b216d"> Message</p>
+                    <input type ="text" placeholder="Write your message here (optional)" id="msg">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="color:white; height:50px; width:350px; background-color:#1b216d;" class="btn btn-secondary" data-dismiss="modal">Donate Now</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+
+</script>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+</head>
+
+<!--
+Here's the documentation for you to use
+https://getbootstrap.com/docs/4.5/components/modal/
+
+This will be useful since you are creating a form
+https://getbootstrap.com/docs/4.5/components/forms/
+-->
+
+<body class="p-2"> <!-- this means add a padding of size 2 around the entire page -->
+
+<!-- Button that opens the modal-- you don't have to mess with it -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+    Launch Modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel" style="color:#1b216d">Donation Confirmed</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="thank-you">
+                    <img style="width:450px; height:300px" src="https://assets-ouch.icons8.com/preview/311/10508af6-ef50-4fb9-b82f-ef97b060d5c1.png">
+                    <h4 style="color:#1b216d; text-align:center">Thank you!</h4>
+                    <p style="color:#1b216d; text-align:center;">Your donation of [insert amount]
+                    will help <br> [insert business] during these <br> unprecedented times.</p>
+                    <p style="color:#c4c4c4; text-align:center; font-size:8pt">A receipt of your donation will be sent 
+                        to your email shortly.</p>
+                </div>
+                <hr>
+                <div class="donation-amount">
+                    <p style="color:#1b216d;">Your donation</p> <br>
+                    <p style="border:1px; border-style:solid; border-color:#1b216d; padding: 1em;color:#1b216d;"> 
+                        Donation to [insert business] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $[insert amount]</p>
+                </div>
+                <hr>
+                <div class="donation-date">
+                    <p style="color:#1b216d; text-align:left;">Donation Date </p> 
+                    <p style="color:#1b216d; text-align:right;">[insert date]</p>
+                </div>
+                <hr>
+                <div class="payment-method">
+                    <p style="color:#1b216d; text-align:left;">Payment Method</p>
+                    <img src="https://correctbook.org/wp-content/uploads/2019/11/sofort-logo-vector-png-visa-logo-png-512.png"
+                         style="width:50px; height:50px;">
+                    <p style="color:#1b216d; text-align:right;"> - [insert last 4 digits]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+
+</script>
+
+</html>
