@@ -1,3 +1,71 @@
 @{
     ViewData["Title"] = "Select Store";
 }
+<!--Title Section-->
+<div class="jumbotron-fluid">
+    <h1 class="display-4 d-none d-sm-block mt-4 text-center">Find and support local businesses with Visa Giveback</h1>
+    <hr class="mt-5 mb-5"/>
+</div>
+<!--Button Section (Need to add functionality either as a tag or bootstrap button-->
+<div class="row">
+    <div class="col-md-12 col-lg-6 text-center">
+        <h2>Help Your Neighborhood</h2>
+    </div>
+    <div class="col-md-12 col-lg-6 text-center">
+        <h2>Expand Your Horizons</h2>
+    </div>
+</div>
+<!--Search Form Section-->
+<div class="container padding mt-4 mb-4">
+    <form>
+        <div class="row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Find: business or category (optional)">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Near: city or zip">
+            </div>
+            <div class="col">
+                <select class="form-control">
+                    <option value="" selected>Financial Struggle Level</option>
+
+                </select>
+            </div>
+          
+        </div>
+    </form>
+</div> <!-- .container -->
+<!--Map and List Section-->
+<div class="container-fluid">
+    <div class="flex-row">
+        <div class="col-4 list-group" id="mapResults">
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">List group item heading</h5>
+                  <small>3 days ago</small>
+                </div>
+                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                <small>Donec id elit non mi porta.</small>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">List group item heading</h5>
+                  <small class="text-muted">3 days ago</small>
+                </div>
+                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                <small class="text-muted">Donec id elit non mi porta.</small>
+              </a>
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">List group item heading</h5>
+                  <small class="text-muted">3 days ago</small>
+                </div>
+                <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                <small class="text-muted">Donec id elit non mi porta.</small>
+              </a>
+        </div>
+        <div class="col-8" id="mapAPI">
+            
+        </div>
+    </div>
+</div>
