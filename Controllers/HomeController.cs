@@ -29,7 +29,15 @@ namespace VisaHackathon2020.Controllers
         }
         
         //Adding New Pages: Sagar
-        public IActionResult LandingPage()
+        public IActionResult HelpFrame()
+        {
+            return View();
+        }
+        public IActionResult ReadyFrame()
+        {
+            return View();
+        }
+        public IActionResult SelectFrame()
         {
             return View();
         }
