@@ -2,21 +2,84 @@
     ViewData["Title"] = "Help Your Neighborhood";
 }
 
-<!--Title Section-->
-<div class="jumbotron-fluid">
-    <h1 class="display-4 d-none d-sm-block mt-4 text-center">Find and support local businesses with Visa Giveback</h1>
-    <hr class="mt-5 mb-5"/>
+<div class="text-center m-3 mt-5 pl-5 pr-5">
+    <h1 class="display-4">Find and support local businesses<br/>with Visa Giveback</h1>
+    <p class="text-muted">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </p>
 </div>
-<!--Button Section (Need to add functionality either as a tag or bootstrap button-->
-<div class="row">
-    <div class="col-md-12 col-lg-6 text-center">
-        <h2>Help Your Neighborhood</h2>
+
+<hr/>
+
+@* Obviously this needs better styling to match design docs but its a start *@
+<ul class="nav nav-pills justify-content-center mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="pills-local-tab" data-toggle="pill" href="#pills-local">Help Your Neighborhood</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="pills-global-tab" data-toggle="pill" href="#pills-global">Expand Your Horizons</a>
+    </li>
+</ul>
+
+<div class="tab-content pr-5 pl-5" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-local" role="tabpanel" aria-labelledby="pills-local-tab">
+
+        <!-- HELP YOUR NEIGHBORHOOD TAB -->
+
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Find: business or category (optional)">
+            <div class="input-group-append" id="button-addon4">
+                <button class="btn btn-light" type="button" onclick="requestLocation()">
+                    <i class="fa fa-compass"></i>
+                    <span id="location-name"><span class="text-muted">Locate me</span></span>
+                </button>
+                <script>
+                function requestLocation() {
+                    if(navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(displayLocation, displayLocationFailed)
+                    } else {
+                                         
+                    }
+                }
+                
+                function displayLocation(position) {
+                    const result = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + '%2C' + position.coords.longitude + '&language=en&key=' + "@Program.ApiKeys.GoogleMaps";
+                    console.log(result)
+                    
+                    $.getJSON(result).done(function(location) {
+                        const state = location.results[0].address_components[4].long_name;
+                        const city = location.results[0].address_components[2].long_name;
+                        
+                        $('#location-name').text(city + ", " + state);
+                    });
+                }
+                
+                function displayLocationFailed() {
+                    $('#location-name').val('failed');
+                }
+                </script>
+                
+                <select class="selectpicker" title="Financial Struggle Level">
+                    <option class="text-danger">Red</option>
+                    <option class="text-warning">Yellow</option>
+                    <option class="text-success">Green</option>
+                </select>
+                <button class="btn btn-primary" type="button" data-toggle="tooltip" title="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
     </div>
-    <div class="col-md-12 col-lg-6 text-center">
-        <h2>Expand Your Horizons</h2>
+    <div class="tab-pane fade" id="pills-global" role="tabpanel" aria-labelledby="pills-global-tab">
+        B
     </div>
 </div>
-<!--Search Form Section-->
+
+@*<!--Search Form Section-->
 <div class="container padding mt-4 mb-4">
     <form>
       <div class="row">
@@ -35,4 +98,4 @@
           
       </div>
     </form>
-</div> <!-- .container -->
+</div> <!-- .container -->*@

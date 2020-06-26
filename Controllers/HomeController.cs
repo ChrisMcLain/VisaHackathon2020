@@ -23,11 +23,6 @@ namespace VisaHackathon2020.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-        
         //Adding New Pages: Sagar
         public IActionResult HelpFrame()
         {
