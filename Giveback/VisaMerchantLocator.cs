@@ -1,7 +1,25 @@
-﻿namespace VisaHackathon2020.Giveback
+﻿using System;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+
+namespace VisaHackathon2020.Giveback
 {
-    public class VisaMerchantLocator
+    public static class VisaMerchantLocator
     {
-        
+        public static MerchantLocatorServiceResponse GetMerchantsNear(MerchantLocatorRequest request)
+        {
+            var jsonRequest = request.AsJson();
+            
+            var response = Program.HttpClient.PostAsync(
+                Program.ApiKeys.MerchantSearchApiUrl, 
+                new StringContent(jsonRequest, Encoding.UTF8, "application/json")).Result;
+            
+            var result = response.Content.ReadAsStringAsync().Result;
+
+            return JsonConvert.DeserializeObject<MerchantLocatorServiceResponseWrapper>(result)
+                .MerchantLocatorServiceResponse;
+        }
     }
 }

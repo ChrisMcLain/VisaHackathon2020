@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.Forms;
@@ -14,7 +15,8 @@ namespace VisaHackathon2020
 {
     public class Program
     {
-        public static ApiKeys ApiKeys => ApiKeys.FromFile("api_keys.json");
+        public static readonly HttpClient HttpClient = new HttpClient();
+        public static readonly ApiKeys ApiKeys = ApiKeys.FromFile("api_keys.json");
         
         public static void Main(string[] args)
         {
