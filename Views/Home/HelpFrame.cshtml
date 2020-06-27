@@ -1,3 +1,4 @@
+@using VisaHackathon2020.Giveback
 @{
     ViewData["Title"] = "Help Your Neighborhood";
 }
@@ -30,18 +31,27 @@
         <!-- HELP YOUR NEIGHBORHOOD TAB -->
 
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Find: business or category (optional)">
-            <div class="input-group-append" id="button-addon4">
+            <select class="selectpicker form-control" data-live-search="true" title="Find: business or category (optional)">
+                @foreach (var category in MerchantCategoryService.Categories)
+                {
+                    <option value="@category.Id">@category.Name.ToTitleCase()</option>
+                }
+            </select>
+            <div class="input-group-append">
+
                 <button class="btn btn-light" type="button" onclick="requestLocation()">
                     <i class="fa fa-compass"></i>
-                    <span id="location-name"><span class="text-muted">Locate me</span></span>
+                    <span id="location-name">
+                        <span class="text-muted">Locate me</span>
+                    </span>
                 </button>
                 <script>
                 function requestLocation() {
                     if(navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(displayLocation, displayLocationFailed)
                     } else {
-                                         
+                        alert('Your browser does not support geolocation.');
+                        $('#location-name').val('Unknown');
                     }
                 }
                 
@@ -61,7 +71,7 @@
                     $('#location-name').val('Unknown');
                 }
                 </script>
-                
+
                 <select class="selectpicker" title="Financial Struggle Level">
                     <option class="text-danger">Red</option>
                     <option class="text-warning">Yellow</option>
