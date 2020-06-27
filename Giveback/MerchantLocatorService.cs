@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace VisaHackathon2020.Giveback
 {
-    public static class VisaMerchantLocator
+    public static class MerchantLocatorService
     {
         public static MerchantLocatorServiceResponse GetMerchantsNear(MerchantLocatorRequest request)
         {
