@@ -33,7 +33,7 @@ namespace VisaHackathon2020.Controllers
             {
                 Latitude = lat,
                 Longitude = lng,
-                Category = category
+                Category = category.Replace(" ", "_")
             };
 
             var response = MerchantLocatorService.GetMerchantsNear(request);
@@ -43,6 +43,7 @@ namespace VisaHackathon2020.Controllers
                 Latitude = lat,
                 Longitude = lng,
                 Response = response,
+                Category = category,
                 ExpandedSearch = expanded
             };
             

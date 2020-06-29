@@ -87,39 +87,58 @@
 <div class="row mt-3">
     @if (Model.HasResults)
     {
-        <div class="col-md-4"></div>
-        <div id="map" class="col-md-8 rounded" style="height: 500px">
-            <script>
-            function initMap() {
-                const mapOptions = {
-                    center: new google.maps.LatLng(@Model.Latitude, @Model.Longitude),
-                    zoom: 13,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                
-                window.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-                
-                @foreach(var business in Model.Response.Response)
-                {
-                    Html.Raw("new google.maps.Marker({position:{lat:" + business.ResponseValues.LocationAddressLatitude 
-                             + ",long:" + business.ResponseValues.LocationAddressLongitude + "}, map:window.map});");
-                }
+        <div class="col-md-4">
+            @foreach (var business in Model.Response.Response) {
+                <a id="merchant-button-@business.ResponseValues.VisaStoreId" class="btn btn-light btn-block merchant-button" onclick="selectMerchant({
+                    latitude: @business.ResponseValues.LocationAddressLatitude, 
+                    longitude: @business.ResponseValues.LocationAddressLongitude},
+                    @business.ResponseValues.VisaStoreId)">
+                    
+                    @business.ResponseValues.VisaMerchantName
+                </a>
             }
-            
-            function moveMap(coordinates) {
-                const location = new google.maps.LatLng(coordinates.latitude, coordinates.longitude);
-                window.map.panTo(location);
-            }
-            </script>
-            <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=@(Program.ApiKeys.GoogleMaps)&callback=initMap">
-            </script>
         </div>
+        <div id="map" class="col-md-8 rounded" style="height: 500px"></div>
+        <script>
+        function initMap() {
+            const mapOptions = {
+                center: new google.maps.LatLng(@Model.Latitude, @Model.Longitude),
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            
+            window.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            
+            @foreach (var business in Model.Response.Response)
+            {
+                Console.WriteLine("business " + business.ResponseValues.MerchantCity);
+                @Html.Raw("new google.maps.Marker({position:{lat:" + business.ResponseValues.LocationAddressLatitude 
+                         + ",lng:" + business.ResponseValues.LocationAddressLongitude + "}, map:window.map});\n");
+            }
+        }
+        
+        function selectMerchant(coordinates, storeId) {
+            $('.merchant-button').addClass('btn-light');
+            $('.merchant-button').removeClass('btn-outline-light');
+            $('#merchant-button-' + storeId).removeClass('btn-light');
+            $('#merchant-button-' + storeId).addClass('btn-outline-light');
+            moveMap(coordinates);
+        }
+        
+        function moveMap(coordinates) {
+            const location = new google.maps.LatLng(coordinates.latitude, coordinates.longitude);
+            window.map.panTo(location);
+            window.map.setZoom(15);
+        }
+        </script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=@(Program.ApiKeys.GoogleMaps)&callback=initMap">
+            </script>
     }
     else
     {
         <div class="col-12 rounded bg-light text-muted text-center">
-            <div class="p-5">Click <i class="fas fa-search"></i> to show results.</div>
+            <div class="p-5">Click <i class="fas fa-search"></i> to find local results.</div>
         </div>
     }
 </div>
