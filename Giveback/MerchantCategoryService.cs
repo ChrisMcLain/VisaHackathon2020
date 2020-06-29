@@ -28,7 +28,7 @@ namespace VisaHackathon2020.Giveback
             while (!parser.EndOfData)
             {
                 var fields = parser.ReadFields();
-                    
+                
                 _categories.Add(new MerchantCategory
                 {
                     Id = int.Parse(fields[0]),

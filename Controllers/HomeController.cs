@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using VisaHackathon2020.Giveback;
 using VisaHackathon2020.Models;
 
 namespace VisaHackathon2020.Controllers
@@ -18,21 +19,37 @@ namespace VisaHackathon2020.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Search(float lat, float lng, string category, bool expanded = false)
         {
-            return View();
+            if (string.IsNullOrEmpty(category))
+            {
+                return View(new SearchModel
+                {
+                    ExpandedSearch = expanded,
+                });
+            }
+            
+            var request = new MerchantLocatorRequest
+            {
+                Latitude = lat,
+                Longitude = lng,
+                Category = category
+            };
+
+            var response = MerchantLocatorService.GetMerchantsNear(request);
+            
+            var model = new SearchModel
+            {
+                Latitude = lat,
+                Longitude = lng,
+                Response = response,
+                ExpandedSearch = expanded
+            };
+            
+            return View(model);
         }
 
-        //Adding New Pages: Sagar
-        public IActionResult HelpFrame()
-        {
-            return View();
-        }
-        public IActionResult ReadyFrame()
-        {
-            return View();
-        }
-        public IActionResult SelectFrame()
+        public IActionResult Index()
         {
             return View();
         }

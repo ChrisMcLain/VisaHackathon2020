@@ -1,0 +1,130 @@
+@model SearchModel
+@using VisaHackathon2020.Giveback
+
+<div class="text-center m-3 mt-5 pl-5 pr-5">
+    <h1 class="display-4">Find and support local businesses<br/>with Visa Giveback</h1>
+    <p class="text-muted">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </p>
+</div>
+
+<hr/>
+
+@* Obviously this needs better styling to match design docs but its a start *@
+<ul class="nav nav-pills justify-content-center mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link @(Model.LocalSearch ? "active" : "")" id="pills-local-tab" data-toggle="pill" href="#pills-local">Help Your Neighborhood</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link @(Model.ExpandedSearch ? "active" : "")" id="pills-global-tab" data-toggle="pill" href="#pills-global">Expand Your Horizons</a>
+    </li>
+</ul>
+
+<div class="tab-content pr-5 pl-5" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-local" role="tabpanel" aria-labelledby="pills-local-tab">
+
+        <!-- HELP YOUR NEIGHBORHOOD TAB -->
+
+        <div class="input-group">
+            <select class="selectpicker form-control" data-live-search="true" title="Find: business or category (optional)">
+                @foreach (var category in MerchantCategoryService.Categories)
+                {
+                    <option value="@category.Id">@category.Name.ToTitleCase()</option>
+                }
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-light" id="locate-button" type="button" onclick="requestLocation()">
+                    <i class="fa fa-compass"></i>
+                    <span id="location-name">
+                        <span class="text-muted">Locate me</span>
+                    </span>
+                </button>
+                <script>
+                function requestLocation() {
+                    if(navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(onLocationFound, onLocationError)
+                    } else {
+                        alert('Your browser does not support geolocation.');
+                        $('#location-name').text('Not supported');
+                        $('#locate-button').addClass('text-danger');
+                    }
+                }
+                
+                function onLocationFound(position) {
+                    $('#location-name').text('Using your location');
+                    $('#locate-button').addClass('text-primary');
+                    $('#search-button').prop('disabled', false);
+                    
+                    moveMap(position.coords);
+                }
+                
+                function onLocationError() {
+                    $('#location-name').text('Unknown');
+                    $('#locate-button').addClass('text-danger');
+                }
+                </script>
+
+                <select class="selectpicker" multiple title="Financial Struggle Level">
+                    <option class="text-danger">Red</option>
+                    <option class="text-warning">Yellow</option>
+                    <option class="text-success">Green</option>
+                </select>
+                
+                <button id="search-button" class="btn btn-primary" type="submit" disabled data-toggle="tooltip" title="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="pills-global" role="tabpanel" aria-labelledby="pills-global-tab">
+        B
+    </div>
+</div>
+
+<div class="row mt-3">
+    @if (Model.HasResults)
+    {
+        <div class="col-md-4"></div>
+        <div id="map" class="col-md-8 rounded" style="height: 500px">
+            <script>
+            function initMap() {
+                const mapOptions = {
+                    center: new google.maps.LatLng(@Model.Latitude, @Model.Longitude),
+                    zoom: 13,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                
+                window.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+                
+                @foreach(var business in Model.Response.Response)
+                {
+                    Html.Raw("new google.maps.Marker({position:{lat:" + business.ResponseValues.LocationAddressLatitude 
+                             + ",long:" + business.ResponseValues.LocationAddressLongitude + "}, map:window.map});");
+                }
+            }
+            
+            function moveMap(coordinates) {
+                const location = new google.maps.LatLng(coordinates.latitude, coordinates.longitude);
+                window.map.panTo(location);
+            }
+            </script>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=@(Program.ApiKeys.GoogleMaps)&callback=initMap">
+            </script>
+        </div>
+    }
+    else
+    {
+        <div class="col-12 rounded bg-light text-muted text-center">
+            <div class="p-5">Click <i class="fas fa-search"></i> to show results.</div>
+        </div>
+    }
+</div>
+
+<script>
+// Request location automatically when the site loads.
+requestLocation();
+</script>
