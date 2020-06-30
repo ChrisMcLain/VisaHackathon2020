@@ -29,10 +29,11 @@
         <!-- HELP YOUR NEIGHBORHOOD TAB -->
 
         <div class="input-group">
-            <select class="selectpicker form-control" data-live-search="true" title="Find: business or category (optional)">
+            <select class="selectpicker show-tick form-control" data-live-search="true" title="Select a Category">
                 @foreach (var category in MerchantCategoryService.Categories)
                 {
-                    <option value="@category.Id">@category.Name.ToTitleCase()</option>
+                    var selected = category.Name.ToTitleCase().Equals(Model.Category.ToTitleCase());
+                    <!option value="@category.Id" @(selected ? "selected" : "")>@category.Name.ToTitleCase()</!option>
                 }
             </select>
             <div class="input-group-append">
@@ -87,15 +88,30 @@
 <div class="row mt-3">
     @if (Model.HasResults)
     {
-        <div class="col-md-4">
-            @foreach (var business in Model.Response.Response) {
-                <a id="merchant-button-@business.ResponseValues.VisaStoreId" class="btn btn-light btn-block merchant-button" onclick="selectMerchant({
-                    latitude: @business.ResponseValues.LocationAddressLatitude, 
-                    longitude: @business.ResponseValues.LocationAddressLongitude},
-                    @business.ResponseValues.VisaStoreId)">
+        <div class="col-md-4 overflow-auto w-100" style="height: 500px">
+            <div class="card bg-warning mb-1">
+                <div class="card-header">
+                    @Model.Category.ToTitleCase()
+                </div>
+            </div>
+            
+            @foreach (var business in Model.Response.Response)
+            {
+                <div id="merchant-button-@business.ResponseValues.VisaStoreId" class="merchant-button card mb-1"
+                     onclick="selectMerchant({
+                        latitude: @business.ResponseValues.LocationAddressLatitude, 
+                        longitude: @business.ResponseValues.LocationAddressLongitude},
+                        @business.ResponseValues.VisaStoreId)">
                     
-                    @business.ResponseValues.VisaMerchantName
-                </a>
+                    <div class="card-body">
+                        <strong>@business.ResponseValues.VisaMerchantName</strong>
+                        <p class="text-muted">
+                            @business.ResponseValues.MerchantStreetAddress
+                        </p>
+                        <button class="btn btn-sm btn-light">Learn more</button>
+                        <button class="btn btn-sm btn-primary">Donate</button>
+                    </div>
+                </div>
             }
         </div>
         <div id="map" class="col-md-8 rounded" style="height: 500px"></div>
@@ -118,10 +134,10 @@
         }
         
         function selectMerchant(coordinates, storeId) {
-            $('.merchant-button').addClass('btn-light');
-            $('.merchant-button').removeClass('btn-outline-light');
-            $('#merchant-button-' + storeId).removeClass('btn-light');
-            $('#merchant-button-' + storeId).addClass('btn-outline-light');
+            //$('.merchant-button').addClass('border-primary');
+            $('.merchant-button').removeClass('border-primary');
+            //$('#merchant-button-' + storeId).removeClass('btn-outline-light');
+            $('#merchant-button-' + storeId).addClass('border-primary');
             moveMap(coordinates);
         }
         
