@@ -28,72 +28,86 @@
 
         <!-- HELP YOUR NEIGHBORHOOD TAB -->
 
-        <div class="input-group">
-            <select class="selectpicker show-tick form-control" data-live-search="true" title="Select a Category">
-                @foreach (var category in MerchantCategoryService.Categories)
-                {
-                    var selected = category.Name.ToTitleCase().Equals(Model.Category.ToTitleCase());
-                    <!option value="@category.Id" @(selected ? "selected" : "")>@category.Name.ToTitleCase()</!option>
-                }
-            </select>
-            <div class="input-group-append">
-                <button class="btn btn-light" id="locate-button" type="button" onclick="requestLocation()">
-                    <i class="fa fa-compass"></i>
-                    <span id="location-name">
-                        <span class="text-muted">Locate me</span>
-                    </span>
-                </button>
-                <script>
-                function requestLocation() {
-                    if(navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(onLocationFound, onLocationError)
-                    } else {
-                        alert('Your browser does not support geolocation.');
-                        $('#location-name').text('Not supported');
-                        $('#locate-button').addClass('text-danger');
+        <form action="@Url.Action("Search", "Home")">
+            <div class="input-group">
+                <select id="category-selector" name="category" class="selectpicker show-tick form-control" 
+                        data-live-search="true" title="Select a Category" onclick="validateForm()">
+                    @foreach (var category in MerchantCategoryService.Categories)
+                    {
+                        var selected = category.Name.ToTitleCase().Equals(Model.Category.ToTitleCase());
+                        <!option value="@category.Id" @(selected ? "selected" : "")>@category.Name.ToTitleCase()</!option>
                     }
-                }
-                
-                function onLocationFound(position) {
-                    $('#location-name').text('Using your location');
-                    $('#locate-button').addClass('text-primary');
-                    $('#search-button').prop('disabled', false);
-                    
-                    moveMap(position.coords);
-                }
-                
-                function onLocationError() {
-                    $('#location-name').text('Unknown');
-                    $('#locate-button').addClass('text-danger');
-                }
-                </script>
-
-                <select class="selectpicker" multiple title="Financial Struggle Level">
-                    <option class="text-danger">Red</option>
-                    <option class="text-warning">Yellow</option>
-                    <option class="text-success">Green</option>
                 </select>
-                
-                <button id="search-button" class="btn btn-primary" type="submit" disabled data-toggle="tooltip" title="Search">
-                    <i class="fas fa-search"></i>
-                </button>
+                <div class="input-group-append">
+                    <button class="btn btn-light" id="locate-button" type="button" onclick="requestLocation()">
+                        <i class="fa fa-compass"></i>
+                        <span id="location-name">
+                            <span class="text-muted">Locate me</span>
+                        </span>
+                    </button>
+                    
+                    <input type="hidden" id="search-latitude"  name="lat" value="@Model.Latitude">
+                    <input type="hidden" id="search-longitude" name="lng" value="@Model.Longitude">
+
+                    @*<select class="selectpicker" multiple title="Financial Struggle Level">
+                        <option class="text-danger">Red</option>
+                        <option class="text-warning">Yellow</option>
+                        <option class="text-success">Green</option>
+                    </select>*@
+                    
+                    <button id="search-button" class="btn btn-primary" type="submit" data-toggle="tooltip" title="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="tab-pane fade" id="pills-global" role="tabpanel" aria-labelledby="pills-global-tab">
         B
     </div>
 </div>
 
+<script>
+function requestLocation() {
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(onLocationFound, onLocationError)
+    } else {
+        alert('Your browser does not support geolocation.');
+        $('#location-name').text('Not supported');
+        $('#locate-button').addClass('text-danger');
+    }
+}
+
+function onLocationFound(position) {
+    $('#location-name').text('Using your location');
+    $('#locate-button').addClass('text-primary');
+    
+    $('#search-latitude').prop('value', position.coords.latitude);
+    $('#search-longitude').prop('value', position.coords.longitude);
+    validateForm();
+}
+
+function onLocationError() {
+    $('#location-name').text('Unknown');
+    $('#locate-button').addClass('text-danger');
+    validateForm();
+}
+
+function validateForm() {
+    var valid = true;
+    
+    if($("#mySelectBox option:selected").length) valid = false;
+    if(!$("#search-latitude").val()) valid = false;
+    if(!$("#search-longitude").val()) valid = false;
+    
+    $('#search-button').prop('disabled', !valid);
+}
+</script>
+
 <div class="row mt-3">
     @if (Model.HasResults)
     {
         <div class="col-md-4 overflow-auto w-100" style="height: 500px">
-            <div class="card bg-warning mb-1">
-                <div class="card-header">
-                    @Model.Category.ToTitleCase()
-                </div>
-            </div>
             
             @foreach (var business in Model.Response.Response)
             {
