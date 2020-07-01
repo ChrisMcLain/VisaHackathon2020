@@ -38,7 +38,7 @@ namespace VisaHackathon2020.Controllers
                 StartIndex = 0
             };
 
-            var response = MerchantLocatorService.GetMerchantsNear(request);
+            var response = MerchantLocatorService.GetMerchantsNear(request, 2);
             
             var model = new SearchModel
             {
