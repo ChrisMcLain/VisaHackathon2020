@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -36,8 +37,14 @@ namespace VisaHackathon2020.Giveback
                     }
                     else
                     {
-                        baseResponse.Response.AddRange(deserialized.Response);
-                        baseResponse.Header.NumRecordsReturned += deserialized.Response.Count;
+                        foreach (var merchant in deserialized.Response
+                            .Where(merchant => baseResponse.Response
+                                .All(n => n.ResponseValues.VisaMerchantId 
+                                          != merchant.ResponseValues.VisaMerchantId)))
+                        {
+                            baseResponse.Response.Add(merchant);
+                            baseResponse.Header.NumRecordsReturned += 1;
+                        }
                     }
                 }
                 catch (Exception e)

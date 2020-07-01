@@ -7,6 +7,8 @@ namespace VisaHackathon2020.Giveback
     {
         public string GoogleMaps { get; set; }
         public string MerchantSearchApiUrl { get; set; }
+        public string FundsTransferApiUrl { get; set; }
+        public string FinancialStruggleApiUrl { get; set; }
 
         public static ApiKeys FromFile(string path)
         {

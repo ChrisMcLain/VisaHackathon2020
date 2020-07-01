@@ -141,7 +141,6 @@ function validateForm() {
             
             @foreach (var business in Model.Response.Response)
             {
-                Console.WriteLine("business " + business.ResponseValues.MerchantCity);
                 @Html.Raw("new google.maps.Marker({position:{lat:" + business.ResponseValues.LocationAddressLatitude 
                          + ",lng:" + business.ResponseValues.LocationAddressLongitude + "}, map:window.map});\n");
             }
