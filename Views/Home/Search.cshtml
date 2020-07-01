@@ -34,7 +34,7 @@
                         data-live-search="true" title="Select a Category" onclick="validateForm()">
                     @foreach (var category in MerchantCategoryService.Categories)
                     {
-                        var selected = category.Id > 0 && Model.Category.Contains(category.Id);
+                        var selected = category.Id > 0 && Model.Category != null && Model.Category.Contains(category.Id);
                         <!option value="@category.Id" @(selected ? "selected" : "")>@category.Name.ToTitleCase()</!option>
                     }
                 </select>
