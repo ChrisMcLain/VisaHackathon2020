@@ -8,9 +8,9 @@ namespace VisaHackathon2020.Giveback
     {
         private static Collection<MerchantCategory> _categories;
 
-        public static Collection<MerchantCategory> Categories => GetCategories();
+        public static IEnumerable<MerchantCategory> Categories => GetCategories();
 
-        private static Collection<MerchantCategory> GetCategories()
+        private static IEnumerable<MerchantCategory> GetCategories()
         {
             if (_categories != null)
             {

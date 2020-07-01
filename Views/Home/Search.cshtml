@@ -1,7 +1,7 @@
 @model SearchModel
 @using VisaHackathon2020.Giveback
 
-<div class="text-center m-3 mt-5 pl-5 pr-5">
+<div class="text-center m-4 pl-5 pr-5">
     <h1 class="display-4">Find and support local businesses<br/>with Visa Giveback</h1>
     @*<p class="text-muted">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -29,8 +29,9 @@
 
         <form action="@Url.Action("Search", "Home")">
             <div class="input-group">
-                <select multiple id="category-selector" name="category" class="selectpicker show-tick form-control" 
-                        data-live-search="true" title="Select a Category" onclick="validateForm()">
+                <select multiple id="category-selector" name="category" class="selectpicker show-tick form-control"
+                        data-live-search="true" title="Select a Category" onclick="validateForm()"
+                        data-selected-text-format="count > 2" data-actions-box="true">
                     @foreach (var category in MerchantCategoryService.Categories.OrderBy(n => n.Name))
                     {
                         var selected = category.Id > 0 && Model.Category != null && Model.Category.Contains(category.Id);
@@ -44,8 +45,8 @@
                             <span class="text-muted">Locate me</span>
                         </span>
                     </button>
-                    
-                    <input type="hidden" id="search-latitude"  name="lat" value="@Model.Latitude">
+
+                    <input type="hidden" id="search-latitude" name="lat" value="@Model.Latitude">
                     <input type="hidden" id="search-longitude" name="lng" value="@Model.Longitude">
 
                     @*<select class="selectpicker" multiple title="Financial Struggle Level">
@@ -53,7 +54,7 @@
                         <option class="text-warning">Yellow</option>
                         <option class="text-success">Green</option>
                     </select>*@
-                    
+
                     <button id="search-button" class="btn btn-visa" type="submit" data-toggle="tooltip" title="Search">
                         <i class="fas fa-search"></i>
                     </button>
@@ -108,7 +109,7 @@ function validateForm() {
     {
         <div class="col-md-4 overflow-auto w-100" style="height: 500px">
             <small class="text-muted">@Model.Response.Header.NumRecordsReturned businesses found</small>
-            
+
             @foreach (var business in Model.Response.Response)
             {
                 <div id="merchant-button-@business.ResponseValues.VisaStoreId" class="merchant-button card mt-1"
@@ -118,12 +119,24 @@ function validateForm() {
                         @business.ResponseValues.VisaStoreId)">
 
                     <div class="card-body">
-                        <strong>@business.ResponseValues.VisaMerchantName</strong>
+                        <strong class="text-visa">@business.ResponseValues.VisaMerchantName</strong>
+                        @foreach (var cat in business.ResponseValues.MerchantCategoryCode)
+                        {
+                            var name = MerchantCategoryService.Categories.Where(n => n.Id == cat);
+                            if (name.Any())
+                            {
+                                <span class="badge badge-visa-orange">@name.First().Name</span>
+                            }
+                        }
                         <p class="text-muted">
-                            @business.ResponseValues.MerchantStreetAddress
+                            <small>@business.ResponseValues.MerchantStreetAddress</small>
                         </p>
                         <button class="btn btn-sm btn-outline-visa-orange">Learn more</button>
-                        <button class="btn btn-sm btn-visa">Donate</button>
+                        <button class="btn btn-sm btn-visa" data-toggle="modal"
+                                data-target="#donate-modal" data-merchant-id="@business.ResponseValues.VisaMerchantId",
+                                data-merchant-name="@business.ResponseValues.VisaMerchantName">
+                            Donate
+                        </button>
                     </div>
                 </div>
             }
@@ -141,8 +154,9 @@ function validateForm() {
             
             @foreach (var business in Model.Response.Response)
             {
-                @Html.Raw("new google.maps.Marker({position:{lat:" + business.ResponseValues.LocationAddressLatitude 
-                         + ",lng:" + business.ResponseValues.LocationAddressLongitude + "}, map:window.map});\n");
+                @Html.Raw("new google.maps.Marker({position:{lat:" + business.ResponseValues.LocationAddressLatitude
+                          + ",lng:" + business.ResponseValues.LocationAddressLongitude + "}, map:window.map});\n")
+                ;
             }
         }
         
@@ -180,6 +194,94 @@ function validateForm() {
 </div>
 
 <script>
-// Request location automatically when the site loads.
-requestLocation();
+// Set amount via clicking appropriate buttons
+function selectAmount(amount) {
+    $('#modal-amount').val(amount);
+    $('.amount-button').removeClass('active');
+    $('.amount-button-' + amount).addClass('active');
+}
+    
+$(function(){
+    // Request location automatically when the site loads.
+    requestLocation();
+                        
+     // Deactivate buttons when typing an amount manually
+    $('#modal-amount').on('change', function() { 
+        selectAmount(this.value); 
+    });
+    
+    // Update opened modals with information about recipient
+    $('#donate-modal').on('show.bs.modal', function(event) {
+      const button = $(event.relatedTarget); // Button that triggered the modal
+      const merchantId = button.data('merchant-id');
+      const merchantName = button.data('merchant-name');
+      $('#modal-merchant-name').text(merchantName);
+      $('#modal-merchant-id').val(merchantId);
+    });
+});
 </script>
+
+<div id="donate-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Donate</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="modal-merchant-id" name="merchant" value="">
+
+                <h5 class="text-visa">Recipient</h5>
+                <strong id="modal-merchant-name"></strong>
+                <hr/>
+
+                <h5 class="text-visa">Amount</h5>
+                <div class="row">
+                    @foreach (var amount in new int[] { 20, 50, 100, 200 })
+                    {
+                        <div class="col-3">
+                            <button type="button" onclick="selectAmount(@amount)"
+                                    class="amount-button amount-button-@amount btn btn-block btn-outline-visa">
+                                $@amount
+                            </button>
+                        </div>
+                    }
+                </div>
+                <div class="mt-3 row">
+                    <div class="col-9">
+                        <input id="modal-amount" type="number" class="form-control border-visa" placeholder="Amount" name="amount"/>
+                    </div>
+                    <div class="col-3">
+                        <select class="selectpicker" data-style="btn-link text-visa" data-width="100%">
+                            <option>USD</option>
+                            <option>USD</option>
+                            <option>USD</option>
+                        </select>
+                    </div>
+                </div>
+                <hr/>
+                
+                <h5 class="text-visa"><img src="~/img/visalogoalt.png" alt="Visa" class="img-fluid" style="height:1em"/> Card Details</h5>
+                <input id="modal-card-holder" type="text" class="form-control w-100 border-visa" placeholder="Card Holder" name="cardHolder"/>
+                <input id="modal-card-number" type="text" class="mt-2 form-control w-100 border-visa" placeholder="Card Number" name="cardNumber"/>
+                <div class="row mt-2">
+                    <div class="col-8">
+                        <input id="modal-card-expiry" type="text" class="form-control border-visa" placeholder="MM/YYYY" name="cardExpiry"/>
+                    </div>
+                    <div class="col-4">
+                        <input id="modal-card-cvc" type="text" class="form-control border-visa" placeholder="CVC" name="cardCvc"/>
+                    </div>
+                </div>
+                <hr/>
+                
+                <h5 class="text-visa">Message</h5>
+                <textarea id="modal-message" class="form-control border-visa" rows="5" placeholder="Write a message for the recipient (optional)" name="message"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-block btn-visa">Donate now</button>
+            </div>
+        </div>
+    </div>
+</div>

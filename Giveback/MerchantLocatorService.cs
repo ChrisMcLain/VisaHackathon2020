@@ -39,8 +39,8 @@ namespace VisaHackathon2020.Giveback
                     {
                         foreach (var merchant in deserialized.Response
                             .Where(merchant => baseResponse.Response
-                                .All(n => n.ResponseValues.VisaMerchantId 
-                                          != merchant.ResponseValues.VisaMerchantId)))
+                                .All(n => n.ResponseValues.VisaStoreId 
+                                          != merchant.ResponseValues.VisaStoreId)))
                         {
                             baseResponse.Response.Add(merchant);
                             baseResponse.Header.NumRecordsReturned += 1;
