@@ -34,7 +34,8 @@ namespace VisaHackathon2020.Controllers
                 Latitude = lat,
                 Longitude = lng,
                 Category = category,
-                Distance = 99
+                Distance = 99,
+                StartIndex = 0
             };
 
             var response = MerchantLocatorService.GetMerchantsNear(request);

@@ -32,7 +32,7 @@
             <div class="input-group">
                 <select multiple id="category-selector" name="category" class="selectpicker show-tick form-control" 
                         data-live-search="true" title="Select a Category" onclick="validateForm()">
-                    @foreach (var category in MerchantCategoryService.Categories)
+                    @foreach (var category in MerchantCategoryService.Categories.OrderBy(n => n.Name))
                     {
                         var selected = category.Id > 0 && Model.Category != null && Model.Category.Contains(category.Id);
                         <!option value="@category.Id" @(selected ? "selected" : "")>@category.Name.ToTitleCase()</!option>

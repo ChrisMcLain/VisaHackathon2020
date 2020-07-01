@@ -26,6 +26,12 @@
         
         [JsonProperty("distance")]
         public int Distance { get; set; }
+        
+        [JsonProperty("startIndex")]
+        public int StartIndex { get; set; }
+
+        [JsonProperty("distanceUnit")] 
+        public string DistanceUnit = "M";
 
         public string AsJson()
         {
