@@ -19,9 +19,9 @@ namespace VisaHackathon2020.Controllers
             _logger = logger;
         }
 
-        public IActionResult Search(float lat, float lng, string category, bool expanded = false)
+        public IActionResult Search(float lat, float lng, int[] category, bool expanded = false)
         {
-            if (string.IsNullOrEmpty(category))
+            if (category.Length == 0)
             {
                 return View(new SearchModel
                 {
@@ -33,7 +33,8 @@ namespace VisaHackathon2020.Controllers
             {
                 Latitude = lat,
                 Longitude = lng,
-                Category = category.Replace(" ", "_")
+                Category = category,
+                Distance = 99
             };
 
             var response = MerchantLocatorService.GetMerchantsNear(request);

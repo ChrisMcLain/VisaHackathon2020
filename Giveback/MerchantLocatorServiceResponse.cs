@@ -22,7 +22,10 @@
         public double Longitude { get; set; }
 
         [JsonProperty("category")]
-        public string Category { get; set; }
+        public int[] Category { get; set; }
+        
+        [JsonProperty("distance")]
+        public int Distance { get; set; }
 
         public string AsJson()
         {

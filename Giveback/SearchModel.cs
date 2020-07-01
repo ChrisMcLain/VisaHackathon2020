@@ -6,11 +6,12 @@
         public bool LocalSearch => !ExpandedSearch;
         
         public MerchantLocatorServiceResponse Response { get; set; }
-        public bool HasResults => Response != null;
+        public bool HasResults => Response?.Response != null;
+        public bool HasSearched => Response != null;
         
         public float Latitude { get; set; }
         public float Longitude { get; set; }
         
-        public string Category { get; set; }
+        public int[] Category { get; set; }
     }
 }

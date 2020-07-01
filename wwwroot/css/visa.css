@@ -1,0 +1,294 @@
+﻿
+/*------------------------------------
+- COLOR visa
+------------------------------------*/
+.nav-pills .nav-link.active {
+    background-color: #1a1f71!important;
+}
+
+.nav-link-visa {
+    color: #1a1f71;
+}
+
+.alert-visa {
+    color: #03030d;
+    background-color: #777ddf;
+    border-color: #666ddb;
+}
+
+.alert-visa hr {
+    border-top-color: #5159d7;
+}
+
+.alert-visa .alert-link {
+    color: #000000;
+}
+
+.badge-visa {
+    color: #fff;
+    background-color: #1a1f71;
+}
+
+.badge-visa[href]:hover, .badge-visa[href]:focus {
+    color: #fff;
+    background-color: #101347;
+}
+
+.bg-visa {
+    background-color: #1a1f71 !important;
+}
+
+a.bg-visa:hover, a.bg-visa:focus,
+button.bg-visa:hover,
+button.bg-visa:focus {
+    background-color: #101347 !important;
+}
+
+.border-visa {
+    border-color: #1a1f71 !important;
+}
+
+.btn-visa {
+    color: #fff;
+    background-color: #1a1f71;
+    border-color: #1a1f71;
+}
+
+.btn-visa:hover {
+    color: #fff;
+    background-color: #131753;
+    border-color: #101347;
+}
+
+.btn-visa:focus, .btn-visa.focus {
+    box-shadow: 0 0 0 0.2rem rgba(26, 31, 113, 0.5);
+}
+
+.btn-visa.disabled, .btn-visa:disabled {
+    color: #fff;
+    background-color: #1a1f71;
+    border-color: #1a1f71;
+}
+
+.btn-visa:not(:disabled):not(.disabled):active, .btn-visa:not(:disabled):not(.disabled).active, .show > .btn-visa.dropdown-toggle {
+    color: #fff;
+    background-color: #101347;
+    border-color: #0d103b;
+}
+
+.btn-visa:not(:disabled):not(.disabled):active:focus, .btn-visa:not(:disabled):not(.disabled).active:focus, .show > .btn-visa.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(26, 31, 113, 0.5);
+}
+
+.btn-outline-visa {
+    color: #1a1f71;
+    background-color: transparent;
+    border-color: #1a1f71;
+}
+
+.btn-outline-visa:hover {
+    color: #fff;
+    background-color: #1a1f71;
+    border-color: #1a1f71;
+}
+
+.btn-outline-visa:focus, .btn-outline-visa.focus {
+    box-shadow: 0 0 0 0.2rem rgba(26, 31, 113, 0.5);
+}
+
+.btn-outline-visa.disabled, .btn-outline-visa:disabled {
+    color: #1a1f71;
+    background-color: transparent;
+}
+
+.btn-outline-visa:not(:disabled):not(.disabled):active, .btn-outline-visa:not(:disabled):not(.disabled).active, .show > .btn-outline-visa.dropdown-toggle {
+    color: #fff;
+    background-color: #1a1f71;
+    border-color: #1a1f71;
+}
+
+.btn-outline-visa:not(:disabled):not(.disabled):active:focus, .btn-outline-visa:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-visa.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(26, 31, 113, 0.5);
+}
+
+.list-group-item-visa {
+    color: #03030d;
+    background-color: #666ddb;
+}
+
+.list-group-item-visa.list-group-item-action:hover, .list-group-item-visa.list-group-item-action:focus {
+    color: #03030d;
+    background-color: #5159d7;
+}
+
+.list-group-item-visa.list-group-item-action.active {
+    color: #fff;
+    background-color: #03030d;
+    border-color: #03030d;
+}
+
+.table-visa,
+.table-visa > th,
+.table-visa > td {
+    background-color: #666ddb;
+}
+
+.table-hover .table-visa:hover {
+    background-color: #5159d7;
+}
+
+.table-hover .table-visa:hover > td,
+.table-hover .table-visa:hover > th {
+    background-color: #5159d7;
+}
+
+.text-visa {
+    color: #1a1f71 !important;
+}
+
+a.text-visa:hover, a.text-visa:focus {
+    color: #101347 !important;
+}
+
+/*------------------------------------
+- COLOR visa-orange
+------------------------------------*/
+.alert-visa-orange {
+    color: #7c5b00;
+    background-color: #ffefc3;
+    border-color: #ffeaaf;
+}
+
+.alert-visa-orange hr {
+    border-top-color: #ffe396;
+}
+
+.alert-visa-orange .alert-link {
+    color: #493600;
+}
+
+.badge-visa-orange {
+    color: #212529;
+    background-color: #f7b600;
+}
+
+.badge-visa-orange[href]:hover, .badge-visa-orange[href]:focus {
+    color: #212529;
+    background-color: #c39000;
+}
+
+.bg-visa-orange {
+    background-color: #f7b600 !important;
+}
+
+a.bg-visa-orange:hover, a.bg-visa-orange:focus,
+button.bg-visa-orange:hover,
+button.bg-visa-orange:focus {
+    background-color: #c39000 !important;
+}
+
+.border-visa-orange {
+    border-color: #f7b600 !important;
+}
+
+.btn-visa-orange {
+    color: #212529;
+    background-color: #f7b600;
+    border-color: #f7b600;
+}
+
+.btn-visa-orange:hover {
+    color: #212529;
+    background-color: #d39b00;
+    border-color: #c39000;
+}
+
+.btn-visa-orange:focus, .btn-visa-orange.focus {
+    box-shadow: 0 0 0 0.2rem rgba(247, 182, 0, 0.5);
+}
+
+.btn-visa-orange.disabled, .btn-visa-orange:disabled {
+    color: #212529;
+    background-color: #f7b600;
+    border-color: #f7b600;
+}
+
+.btn-visa-orange:not(:disabled):not(.disabled):active, .btn-visa-orange:not(:disabled):not(.disabled).active, .show > .btn-visa-orange.dropdown-toggle {
+    color: #212529;
+    background-color: #c39000;
+    border-color: #b48500;
+}
+
+.btn-visa-orange:not(:disabled):not(.disabled):active:focus, .btn-visa-orange:not(:disabled):not(.disabled).active:focus, .show > .btn-visa-orange.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(247, 182, 0, 0.5);
+}
+
+.btn-outline-visa-orange {
+    color: #f7b600;
+    background-color: transparent;
+    border-color: #f7b600;
+}
+
+.btn-outline-visa-orange:hover {
+    color: #212529;
+    background-color: #f7b600;
+    border-color: #f7b600;
+}
+
+.btn-outline-visa-orange:focus, .btn-outline-visa-orange.focus {
+    box-shadow: 0 0 0 0.2rem rgba(247, 182, 0, 0.5);
+}
+
+.btn-outline-visa-orange.disabled, .btn-outline-visa-orange:disabled {
+    color: #f7b600;
+    background-color: transparent;
+}
+
+.btn-outline-visa-orange:not(:disabled):not(.disabled):active, .btn-outline-visa-orange:not(:disabled):not(.disabled).active, .show > .btn-outline-visa-orange.dropdown-toggle {
+    color: #212529;
+    background-color: #f7b600;
+    border-color: #f7b600;
+}
+
+.btn-outline-visa-orange:not(:disabled):not(.disabled):active:focus, .btn-outline-visa-orange:not(:disabled):not(.disabled).active:focus, .show > .btn-outline-visa-orange.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(247, 182, 0, 0.5);
+}
+
+.list-group-item-visa-orange {
+    color: #7c5b00;
+    background-color: #ffeaaf;
+}
+
+.list-group-item-visa-orange.list-group-item-action:hover, .list-group-item-visa-orange.list-group-item-action:focus {
+    color: #7c5b00;
+    background-color: #ffe396;
+}
+
+.list-group-item-visa-orange.list-group-item-action.active {
+    color: #212529;
+    background-color: #7c5b00;
+    border-color: #7c5b00;
+}
+
+.table-visa-orange,
+.table-visa-orange > th,
+.table-visa-orange > td {
+    background-color: #ffeaaf;
+}
+
+.table-hover .table-visa-orange:hover {
+    background-color: #ffe396;
+}
+
+.table-hover .table-visa-orange:hover > td,
+.table-hover .table-visa-orange:hover > th {
+    background-color: #ffe396;
+}
+
+.text-visa-orange {
+    color: #f7b600 !important;
+}
+
+a.text-visa-orange:hover, a.text-visa-orange:focus {
+    color: #c39000 !important;
+}
