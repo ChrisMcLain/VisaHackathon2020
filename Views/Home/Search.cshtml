@@ -103,7 +103,6 @@
             {
                 @Html.Raw("new google.maps.Marker({position:{lat:" + business.ResponseValues.LocationAddressLatitude
                           + ",lng:" + business.ResponseValues.LocationAddressLongitude + "}, map:window.map});\n")
-                ;
             }
         }
         
@@ -303,10 +302,6 @@ $(function(){
                         <div class="col-3">
                             <select class="selectpicker" data-style="btn-link text-visa" name="currency" data-width="100%">
                                 <option selected>USD</option>
-                                @foreach (var currency in CultureInfo.GetCultures(CultureTypes.AllCultures).Select(n => n.NumberFormat.CurrencySymbol).Distinct())
-                                {
-                                    <option>@currency</option>
-                                }
                             </select>
                         </div>
                     </div>
