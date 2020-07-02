@@ -54,23 +54,28 @@ namespace VisaHackathon2020.Controllers
 
         [HttpPost]
         public IActionResult Donate(long merchant, long amount, string cardHolder, string cardNumber, 
-            string cardExpiry, string cardCvc, string message)
+            string cardExpiry, string cardCvc, string message, string currency)
         {
+            var expiry = DateTime.Parse(cardExpiry);
+            
             var request = new FundsTransferRequest
             {
                 MerchantId = merchant,
                 Amount = amount,
                 CardNumber = cardNumber,
-                CardExpiryDate = cardExpiry,
+                CardExpiryDate = $"{expiry.Year}-{expiry.Month}",
+                Currency = currency,
                 LocalTransactionDateTime = DateTimeOffset.Now
             };
+
+            var result = FundsTransferService.TransferFunds(request);
             
-            return RedirectToAction("Success");
+            return Donate(result);
         }
         
-        public IActionResult Success()
+        public IActionResult Donate(FundsTransferServiceResponse result)
         {
-            return View();
+            return View(result);
         }
 
         public IActionResult Index()

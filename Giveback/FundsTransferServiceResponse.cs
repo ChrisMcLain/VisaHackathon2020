@@ -33,4 +33,22 @@ namespace VisaHackathon2020.Giveback
             return JsonConvert.SerializeObject(this);
         }
     }
+    
+    public partial class FundsTransferServiceResponse
+    {
+        [JsonProperty("transactionIdentifier")]
+        public long TransactionIdentifier { get; set; }
+
+        [JsonProperty("actionCode")]
+        public string ActionCode { get; set; }
+
+        [JsonProperty("approvalCode")]
+        public string ApprovalCode { get; set; }
+
+        [JsonProperty("responseCode")]
+        public long ResponseCode { get; set; }
+
+        [JsonProperty("transmissionDateTime")]
+        public DateTimeOffset TransmissionDateTime { get; set; }
+    }
 }
