@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace VisaHackathon2020.Giveback
 {
-    public class FundsTransferServiceRequest
+    public class FundsTransferRequest
     {
         [JsonProperty("cardNumber")]
         public string CardNumber { get; set; }
@@ -23,7 +23,7 @@ namespace VisaHackathon2020.Giveback
         [JsonProperty("localTransactionDateTime")]
         public DateTimeOffset LocalTransactionDateTime { get; set; }
 
-        public FundsTransferServiceRequest()
+        public FundsTransferRequest()
         {
             LocalTransactionDateTime = DateTimeOffset.Now;
         }

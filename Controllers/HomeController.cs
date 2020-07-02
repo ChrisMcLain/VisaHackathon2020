@@ -52,6 +52,27 @@ namespace VisaHackathon2020.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult Donate(long merchant, long amount, string cardHolder, string cardNumber, 
+            string cardExpiry, string cardCvc, string message)
+        {
+            var request = new FundsTransferRequest
+            {
+                MerchantId = merchant,
+                Amount = amount,
+                CardNumber = cardNumber,
+                CardExpiryDate = cardExpiry,
+                LocalTransactionDateTime = DateTimeOffset.Now
+            };
+            
+            return RedirectToAction("Success");
+        }
+        
+        public IActionResult Success()
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             return View();

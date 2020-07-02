@@ -231,56 +231,57 @@ $(function(){
                 </button>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="modal-merchant-id" name="merchant" value="">
+                <form action="@Url.Action("Donate", "Home")" method="POST">
+                    <input type="hidden" id="modal-merchant-id" name="merchant" value="">
+                    <h5 class="text-visa">Recipient</h5>
+                    <strong id="modal-merchant-name"></strong>
+                    <hr/>
 
-                <h5 class="text-visa">Recipient</h5>
-                <strong id="modal-merchant-name"></strong>
-                <hr/>
-
-                <h5 class="text-visa">Amount</h5>
-                <div class="row">
-                    @foreach (var amount in new int[] { 20, 50, 100, 200 })
-                    {
-                        <div class="col-3">
-                            <button type="button" onclick="selectAmount(@amount)"
-                                    class="amount-button amount-button-@amount btn btn-block btn-outline-visa">
-                                $@amount
-                            </button>
+                    <h5 class="text-visa">Amount</h5>
+                    <div class="row">
+                        @foreach (var amount in new int[] {20, 50, 100, 200})
+                        {
+                            <div class="col-3">
+                                <button type="button" onclick="selectAmount(@amount)"
+                                        class="amount-button amount-button-@amount btn btn-block btn-outline-visa">
+                                    $@amount
+                                </button>
+                            </div>
+                        }
+                    </div>
+                    <div class="mt-3 row">
+                        <div class="col-9">
+                            <input id="modal-amount" type="number" class="form-control border-visa" placeholder="Amount" name="amount"/>
                         </div>
-                    }
-                </div>
-                <div class="mt-3 row">
-                    <div class="col-9">
-                        <input id="modal-amount" type="number" class="form-control border-visa" placeholder="Amount" name="amount"/>
+                        <div class="col-3">
+                            <select class="selectpicker" data-style="btn-link text-visa" data-width="100%">
+                                <option>USD</option>
+                                <option>USD</option>
+                                <option>USD</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-3">
-                        <select class="selectpicker" data-style="btn-link text-visa" data-width="100%">
-                            <option>USD</option>
-                            <option>USD</option>
-                            <option>USD</option>
-                        </select>
+                    <hr/>
+
+                    <h5 class="text-visa"><img src="~/img/visalogoalt.png" alt="Visa" class="img-fluid" style="height:1em"/> Card Details</h5>
+                    <input id="modal-card-holder" type="text" class="form-control w-100 border-visa" placeholder="Card Holder" name="cardHolder"/>
+                    <input id="modal-card-number" type="text" class="mt-2 form-control w-100 border-visa" placeholder="Card Number" name="cardNumber"/>
+                    <div class="row mt-2">
+                        <div class="col-8">
+                            <input id="modal-card-expiry" type="text" class="form-control border-visa" placeholder="MM/YYYY" name="cardExpiry"/>
+                        </div>
+                        <div class="col-4">
+                            <input id="modal-card-cvc" type="text" class="form-control border-visa" placeholder="CVC" name="cardCvc"/>
+                        </div>
                     </div>
-                </div>
-                <hr/>
-                
-                <h5 class="text-visa"><img src="~/img/visalogoalt.png" alt="Visa" class="img-fluid" style="height:1em"/> Card Details</h5>
-                <input id="modal-card-holder" type="text" class="form-control w-100 border-visa" placeholder="Card Holder" name="cardHolder"/>
-                <input id="modal-card-number" type="text" class="mt-2 form-control w-100 border-visa" placeholder="Card Number" name="cardNumber"/>
-                <div class="row mt-2">
-                    <div class="col-8">
-                        <input id="modal-card-expiry" type="text" class="form-control border-visa" placeholder="MM/YYYY" name="cardExpiry"/>
-                    </div>
-                    <div class="col-4">
-                        <input id="modal-card-cvc" type="text" class="form-control border-visa" placeholder="CVC" name="cardCvc"/>
-                    </div>
-                </div>
-                <hr/>
-                
-                <h5 class="text-visa">Message</h5>
-                <textarea id="modal-message" class="form-control border-visa" rows="5" placeholder="Write a message for the recipient (optional)" name="message"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-block btn-visa">Donate now</button>
+                    <hr/>
+
+                    <h5 class="text-visa">Message</h5>
+                    <textarea id="modal-message" class="form-control border-visa" rows="5" placeholder="Write a message for the recipient (optional)" name="message"></textarea>
+                    <hr/>
+                   
+                    <button type="submit" class="btn btn-block btn-visa">Donate now</button>
+                </form>
             </div>
         </div>
     </div>
