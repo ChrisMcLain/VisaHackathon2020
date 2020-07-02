@@ -4,106 +4,51 @@
 
 <div class="text-center m-4 pl-5 pr-5">
     <h1 class="display-4">Find and support local businesses<br/>with Visa Giveback</h1>
-    @*<p class="text-muted">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    </p>*@
 </div>
 
 <hr/>
 
-@*<ul class="nav nav-pills justify-content-center mb-3" id="pills-tab" role="tablist">
+<ul class="nav nav-pills justify-content-center mb-3" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
-        <a class="nav-link nav-link-visa @(Model.LocalSearch ? "active" : "")" id="pills-local-tab" data-toggle="pill" href="#pills-local">Help Your Neighborhood</a>
+        <a id="local-pill" class="nav-link nav-link-visa" onclick="showInput(false)" href="#">Help Your Neighborhood</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link nav-link-visa @(Model.ExpandedSearch ? "active" : "")" id="pills-global-tab" data-toggle="pill" href="#pills-global">Expand Your Horizons</a>
+        <a id="expanded-pill" class="nav-link nav-link-visa" onclick="showInput(true)" href="#">Expand Your Horizons</a>
     </li>
-</ul>*@
+</ul>
 
-<div class="tab-content pr-5 pl-5" id="pills-tabContent">
-    <div class="tab-pane fade show active" id="pills-local" role="tabpanel" aria-labelledby="pills-local-tab">
+<div class="pr-5 pl-5">
+    <form action="@Url.Action("Search", "Home")">
+        <div class="form-inline justify-content-center">
+            <select multiple id="category-selector" name="category" class="selectpicker show-tick form-control"
+                    data-live-search="true" title="Select a Category" onclick="validateForm()" data-style="btn-outline-visa"
+                    data-selected-text-format="count > 2" data-actions-box="true" data-width="25em">
+                @foreach (var category in MerchantCategoryService.Categories.OrderBy(n => n.Name))
+                {
+                    var selected = category.Id > 0 && Model.Category != null && Model.Category.Contains(category.Id);
+                    <!option value="@category.Id" @(selected ? "selected" : "")>@category.Name.ToTitleCase()</!option>
+                }
+            </select>
+                
+            <button class="btn btn-outline-visa ml-2 mr-2" id="location-button" type="button" onclick="requestLocation()">
+                <i class="fa fa-compass"></i>
+                <span id="location-name">
+                    <span class="text-muted">Locate me</span>
+                </span>
+            </button>
+            
+            <input class="form-control ml-2 mr-2" style="width:20em" type="text" id="location-field" 
+                   placeholder="Enter a Location" name="search" value="@(Model.SearchQuery ?? "")"/>
 
-        <!-- HELP YOUR NEIGHBORHOOD TAB -->
+            <input type="hidden" id="search-latitude" name="lat" value="@Model.Latitude">
+            <input type="hidden" id="search-longitude" name="lng" value="@Model.Longitude">
 
-        <form action="@Url.Action("Search", "Home")">
-            <div class="input-group">
-                <select multiple id="category-selector" name="category" class="selectpicker show-tick form-control"
-                        data-live-search="true" title="Select a Category" onclick="validateForm()"
-                        data-selected-text-format="count > 2" data-actions-box="true">
-                    @foreach (var category in MerchantCategoryService.Categories.OrderBy(n => n.Name))
-                    {
-                        var selected = category.Id > 0 && Model.Category != null && Model.Category.Contains(category.Id);
-                        <!option value="@category.Id" @(selected ? "selected" : "")>@category.Name.ToTitleCase()</!option>
-                    }
-                </select>
-                <div class="input-group-append">
-                    <button class="btn btn-light" id="locate-button" type="button" onclick="requestLocation()">
-                        <i class="fa fa-compass"></i>
-                        <span id="location-name">
-                            <span class="text-muted">Locate me</span>
-                        </span>
-                    </button>
-
-                    <input type="hidden" id="search-latitude" name="lat" value="@Model.Latitude">
-                    <input type="hidden" id="search-longitude" name="lng" value="@Model.Longitude">
-
-                    @*<select class="selectpicker" multiple title="Financial Struggle Level">
-                        <option class="text-danger">Red</option>
-                        <option class="text-warning">Yellow</option>
-                        <option class="text-success">Green</option>
-                    </select>*@
-
-                    <button id="search-button" class="btn btn-visa" type="submit" data-toggle="tooltip" title="Search">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="tab-pane fade" id="pills-global" role="tabpanel" aria-labelledby="pills-global-tab">
-        <!-- Not currently in use, ignore me :) -->
-    </div>
+            <button id="search-button" class="btn btn-visa" type="submit">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </div>
+    </form>
 </div>
-
-<script>
-function requestLocation() {
-    if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(onLocationFound, onLocationError)
-    } else {
-        alert('Your browser does not support geolocation.');
-        $('#location-name').text('Not supported');
-        $('#locate-button').addClass('text-danger');
-    }
-}
-
-function onLocationFound(position) {
-    $('#location-name').text('Using your location');
-    $('#locate-button').addClass('text-visa');
-    
-    $('#search-latitude').prop('value', position.coords.latitude);
-    $('#search-longitude').prop('value', position.coords.longitude);
-    validateForm();
-}
-
-function onLocationError() {
-    $('#location-name').text('Unknown');
-    $('#locate-button').addClass('text-danger');
-    validateForm();
-}
-
-function validateForm() {
-    var valid = true;
-    
-    if($("#mySelectBox option:selected").length) valid = false;
-    if(!$("#search-latitude").val()) valid = false;
-    if(!$("#search-longitude").val()) valid = false;
-    
-    $('#search-button').prop('disabled', !valid);
-}
-</script>
 
 <div class="row mt-3">
     @if (Model.HasResults)
@@ -151,6 +96,7 @@ function validateForm() {
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             
+            initGeocoder();
             window.map = new google.maps.Map(document.getElementById('map'), mapOptions);
             
             @foreach (var business in Model.Response.Response)
@@ -191,24 +137,124 @@ function validateForm() {
                 <div class="p-5">Click <i class="fas fa-search"></i> to find local results.</div>
             }
         </div>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=@(Program.ApiKeys.GoogleMaps)&callback=initGeocoder">
+            </script>
     }
 </div>
 
 <script>
+function requestLocation() {
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(onLocationFound, onLocationError)
+        $('#location-name').text('Finding your location...');
+        $('#locate-button').removeClass('text-visa');
+    } else {
+        alert('Your browser does not support geolocation.');
+        $('#location-name').text('Not supported');
+        $('#locate-button').addClass('text-danger');
+    }
+}
+
+function onLocationFound(position) {
+    $('#location-name').text('Using your location');
+    $('#locate-button').addClass('text-visa');
+    
+    $('#search-latitude').prop('value', position.coords.latitude);
+    $('#search-longitude').prop('value', position.coords.longitude);
+    validateForm();
+}
+
+function onLocationError() {
+    $('#location-name').text('Unknown');
+    $('#locate-button').addClass('text-danger');
+    validateForm();
+}
+
+function validateForm() {
+    var valid = true;
+    var selected = $("#category-selector option:selected").length;
+    
+    if(selected == 0) valid = false;
+    if(!$("#search-latitude").val()) valid = false;
+    if(!$("#search-longitude").val()) valid = false;
+    
+    $('#search-button').prop('disabled', !valid);
+}
+
+function showInput(expanded) {
+    if(expanded) {
+        resetLocation();
+        $('#location-button').hide();
+        $('#location-field').show();
+        $('#expanded-pill').addClass('active');
+        $('#local-pill').removeClass('active');
+    } else {
+        requestLocation();
+        $('#location-field').val('');
+        $('#location-button').show();
+        $('#location-field').hide();
+        $('#expanded-pill').removeClass('active');
+        $('#local-pill').addClass('active');
+    }
+}
+
 // Set amount via clicking appropriate buttons
 function selectAmount(amount) {
     $('#modal-amount').val(amount);
     $('.amount-button').removeClass('active');
     $('.amount-button-' + amount).addClass('active');
 }
+
+function initGeocoder() {
+    window.geocoder = new google.maps.Geocoder();
+}
+
+function resetLocation() {
+    $('#search-latitude').prop('value', null);
+    $('#search-longitude').prop('value', null);
+}
+
+function updateGeocoding() {
+    const search = $('#location-field').val();
+    
+    $('#location-field').removeClass('border-visa', 'border-danger');
+    
+    resetLocation();
+    validateForm();
+    
+    if(search.length > 2) {
+        window.geocoder.geocode({'address': search }, function(results, status) {
+            if (status == 'OK') {
+                console.log(results)
+                $('#search-latitude').prop('value', results[0].geometry.location.lat);
+                $('#search-longitude').prop('value', results[0].geometry.location.lng);
+                $('#location-field').addClass('border-visa');
+            } else {
+                $('#location-field').addClass('border-danger');
+            }
+            validateForm();
+        });
+    }
+}
     
 $(function(){
-    // Request location automatically when the site loads.
-    requestLocation();
+    // Show the correct tab on page load
+    showInput(@(Model.ExpandedSearch ? "true" : "false"));
                         
      // Deactivate buttons when typing an amount manually
     $('#modal-amount').on('change', function() { 
         selectAmount(this.value); 
+    });
+    
+    // Geocode any time the user inputs new data
+    $('#location-field').on('change', function() {
+        updateGeocoding();
+    });
+    
+    // Update validation when category is changed
+    $('#category-selector').on('changed.bs.select', function(e, clickedIndex, isSelected, previousValue) {
+        validateForm();
     });
     
     // Update opened modals with information about recipient
@@ -282,7 +328,7 @@ $(function(){
                     <h5 class="text-visa">Message</h5>
                     <textarea id="modal-message" class="form-control border-visa" rows="5" placeholder="Write a message for the recipient (optional)" name="message"></textarea>
                     <hr/>
-                   
+
                     <button type="submit" class="btn btn-block btn-visa">Donate now</button>
                 </form>
             </div>

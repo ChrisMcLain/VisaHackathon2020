@@ -19,14 +19,11 @@ namespace VisaHackathon2020.Controllers
             _logger = logger;
         }
 
-        public IActionResult Search(float lat, float lng, int[] category, bool expanded = false)
+        public IActionResult Search(float lat, float lng, int[] category, string search)
         {
             if (category.Length == 0)
             {
-                return View(new SearchModel
-                {
-                    ExpandedSearch = expanded,
-                });
+                return View(new SearchModel());
             }
             
             var request = new MerchantLocatorRequest
@@ -46,7 +43,7 @@ namespace VisaHackathon2020.Controllers
                 Longitude = lng,
                 Response = response,
                 Category = category,
-                ExpandedSearch = expanded
+                SearchQuery = search
             };
             
             return View(model);
@@ -80,7 +77,7 @@ namespace VisaHackathon2020.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("Search");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

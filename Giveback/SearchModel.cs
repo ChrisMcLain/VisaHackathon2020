@@ -2,8 +2,8 @@
 {
     public class SearchModel
     {
-        public bool ExpandedSearch { get; set; }
-        public bool LocalSearch => !ExpandedSearch;
+        public bool ExpandedSearch => SearchQuery != null && !SearchQuery.Equals(string.Empty);
+        public string SearchQuery { get; set; }
         
         public MerchantLocatorServiceResponse Response { get; set; }
         public bool HasResults => Response?.Response != null;
