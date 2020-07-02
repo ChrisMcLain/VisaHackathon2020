@@ -22,6 +22,7 @@ against the API and we determine the relevant latitude and longitude.
 
 As seen below, an invalid location query results in a disabled search button and a red border to indicate the issue.
 In future revisions, given more time, we would have liked to provide additional indication of the issue to the user.
+When the location entered is valid, the user is reaffirmed with a Visa-blue outline.
 ![Expanded](README/expanded_search_2.png)
 
 Below, we see the results of a search for all 11 categories of business in Manhattan, New York City, New York.
