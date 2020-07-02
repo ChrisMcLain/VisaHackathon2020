@@ -10,6 +10,9 @@ The following images display the workflow of completing a local search. To accom
 JavaScript Geolocation API.
 
 ![Local](README/local_search_1.png)
+
+Users can select various businesses to jump to their location on the Google Maps integrated map. The map also
+features markers for all search results. The currently selected items are outlined in Visa-blue.
 ![Local](README/local_search_2.png)
 
 ## Expand Your Horizons
